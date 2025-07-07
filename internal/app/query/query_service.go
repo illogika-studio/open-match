@@ -74,18 +74,13 @@ func (s *queryService) QueryTickets(req *pb.QueryTicketsRequest, responseServer 
 	stats.Record(ctx, ticketsPerQuery.M(int64(len(results))))
 
 	pSize := getPageSize(s.cfg)
-	for start := 0; start < len(results); start += pSize {
-		end := start + pSize
-		if end > len(results) {
-			end = len(results)
-		}
+	end := min(len(results), pSize)
 
-		err := responseServer.Send(&pb.QueryTicketsResponse{
-			Tickets: results[start:end],
-		})
-		if err != nil {
-			return err
-		}
+	err = responseServer.Send(&pb.QueryTicketsResponse{
+		Tickets: results[:end],
+	})
+	if err != nil {
+		return err
 	}
 
 	return nil

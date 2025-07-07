@@ -56,7 +56,7 @@
 BASE_VERSION = 1.8.0
 SHORT_SHA = $(shell git rev-parse --short=7 HEAD | tr -d [:punct:])
 BRANCH_NAME = $(shell git rev-parse --abbrev-ref HEAD | tr -d [:punct:])
-VERSION = $(BASE_VERSION)-$(SHORT_SHA)
+VERSION = $(BASE_VERSION)
 BUILD_DATE = $(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
 YEAR_MONTH = $(shell date -u +'%Y%m')
 YEAR_MONTH_DAY = $(shell date -u +'%Y%m%d')
@@ -84,11 +84,11 @@ BUILD_DIR = $(REPOSITORY_ROOT)/build
 TOOLCHAIN_DIR = $(BUILD_DIR)/toolchain
 TOOLCHAIN_BIN = $(TOOLCHAIN_DIR)/bin
 PROTOC_INCLUDES := $(REPOSITORY_ROOT)/third_party
-GCP_PROJECT_ID ?=
+GCP_PROJECT_ID ?= 7dbm
 GCP_PROJECT_FLAG = --project=$(GCP_PROJECT_ID)
 OPEN_MATCH_BUILD_PROJECT_ID = open-match-build
 OPEN_MATCH_PUBLIC_IMAGES_PROJECT_ID = open-match-public-images
-REGISTRY ?= gcr.io/$(GCP_PROJECT_ID)
+REGISTRY ?= registry2.edgegap.com/illogika-b6wygglayhzo
 TAG = $(VERSION)
 ALTERNATE_TAG = dev
 VERSIONED_CANARY_TAG = $(BASE_VERSION)-canary
